@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Plesla</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="topbar">
+        <div class="brand">
+          <span class="brand-mark">P</span>
+          <div class="brand-text">
+            <div class="brand-title">Plesla</div>
+            <div class="brand-sub">Drive mode audio</div>
+          </div>
+        </div>
+        <div id="status-pill" class="status-pill">Connecting...</div>
+      </header>
+
+      <main class="main">
+        <section id="home-view" class="view active">
+          <div class="hero">
+            <div class="hero-copy">
+              <div class="hero-title">Keep your eyes up.</div>
+              <div class="hero-sub">Big buttons, fast taps, less scrolling.</div>
+            </div>
+            <div class="hero-actions">
+              <button id="quick-recent" class="action-pill">Play recent</button>
+              <button id="quick-shuffle" class="action-pill">Shuffle library</button>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-title">Continue listening</div>
+            <div id="continue-list" class="card-row"></div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-title">Recently added</div>
+            <div id="recent-list" class="card-row"></div>
+          </div>
+        </section>
+
+        <section id="library-view" class="view">
+          <div class="panel">
+            <div class="panel-title">Library</div>
+            <div class="segment">
+              <button class="segment-btn" data-browse="artists">Artists</button>
+              <button class="segment-btn" data-browse="albums">Albums</button>
+              <button class="segment-btn" data-browse="playlists">Playlists</button>
+            </div>
+            <div id="library-list" class="list-grid"></div>
+            <button id="library-more" class="load-more">Load more</button>
+          </div>
+        </section>
+
+        <section id="search-view" class="view">
+          <div class="panel">
+            <div class="panel-title">Search</div>
+            <div class="search-bar">
+              <input id="search-input" type="search" placeholder="Artists, albums, tracks" />
+              <button id="search-go" class="action-pill">Go</button>
+            </div>
+            <div id="search-results" class="list-grid"></div>
+          </div>
+        </section>
+
+        <section id="now-view" class="view">
+          <div class="panel">
+            <div class="panel-title">Now playing</div>
+            <div id="now-detail" class="now-detail"></div>
+            <div id="queue-list" class="queue-list"></div>
+          </div>
+        </section>
+      </main>
+
+      <div class="nowbar">
+        <div class="now-meta">
+          <div id="now-thumb" class="now-thumb"></div>
+          <div class="now-text">
+            <div id="now-title" class="now-title">Nothing playing</div>
+            <div id="now-sub" class="now-sub">Choose something to play</div>
+          </div>
+          <div class="now-actions">
+            <button id="minimize-btn" class="expand-btn" aria-label="Minimize player">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M6 9l6 6 6-6H6z" />
+              </svg>
+            </button>
+            <button id="expand-btn" class="expand-btn" aria-label="Expand now playing">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M7 3h6v2H9v4H7V3zm8 0h6v6h-2V5h-4V3zM7 15h2v4h4v2H7v-6zm12 0h2v6h-6v-2h4v-4z" />
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div class="now-controls">
+          <button id="prev-btn" class="control-btn" aria-label="Previous">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M6 5h2v14H6zM20 6l-10 6 10 6V6z" />
+            </svg>
+          </button>
+          <button id="play-btn" class="control-btn primary" aria-label="Play or pause">
+            <svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M8 5l11 7-11 7V5z" />
+            </svg>
+            <svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M6 5h4v14H6zM14 5h4v14h-4z" />
+            </svg>
+          </button>
+          <button id="next-btn" class="control-btn" aria-label="Next">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M16 5h2v14h-2zM4 6l10 6-10 6V6z" />
+            </svg>
+          </button>
+        </div>
+        <div class="now-progress">
+          <div class="progress-row">
+            <div id="track-elapsed" class="progress-label">0:00</div>
+            <div id="track-index" class="progress-center">Chapter --</div>
+            <div id="track-remaining" class="progress-label">-0:00</div>
+          </div>
+          <input id="seekbar" class="seekbar" type="range" min="0" max="100" value="0" />
+          <div class="progress-row muted">
+            <div id="book-progress" class="progress-label">Book --</div>
+            <div id="book-remaining" class="progress-label"></div>
+          </div>
+          <div class="book-bar">
+            <div id="book-bar-fill" class="book-bar-fill"></div>
+          </div>
+        </div>
+      </div>
+
+      <nav class="bottom-nav">
+        <button class="nav-btn active" data-view="home">Home</button>
+        <button class="nav-btn" data-view="library">Library</button>
+        <button class="nav-btn" data-view="search">Search</button>
+        <button class="nav-btn" data-view="now">Now</button>
+      </nav>
+    </div>
+
+    <div id="now-fullscreen" class="now-fullscreen hidden">
+      <div class="now-fullscreen-card">
+        <div class="now-fullscreen-header">
+          <div class="now-fullscreen-title">Now playing</div>
+          <button id="now-fullscreen-close" class="drawer-close">Close</button>
+        </div>
+        <div class="now-fullscreen-body">
+          <div id="now-full-art" class="now-full-art"></div>
+          <div class="now-full-meta">
+            <div id="now-full-title" class="now-full-title">Nothing playing</div>
+            <div id="now-full-book" class="now-full-book"></div>
+            <div id="now-full-author" class="now-full-author"></div>
+          </div>
+          <div class="now-full-progress">
+            <div class="progress-row">
+              <div id="track-elapsed-full" class="progress-label">0:00</div>
+              <div id="track-index-full" class="progress-center">Chapter --</div>
+              <div id="track-remaining-full" class="progress-label">-0:00</div>
+            </div>
+            <input id="seekbar-full" class="seekbar" type="range" min="0" max="100" value="0" />
+            <div class="progress-row muted">
+              <div id="book-progress-full" class="progress-label">Book --</div>
+              <div id="book-remaining-full" class="progress-label"></div>
+            </div>
+            <div class="book-bar">
+              <div id="book-bar-fill-full" class="book-bar-fill"></div>
+            </div>
+          </div>
+          <div class="now-full-controls">
+            <button id="prev-btn-full" class="control-btn" aria-label="Previous">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M6 5h2v14H6zM20 6l-10 6 10 6V6z" />
+              </svg>
+            </button>
+            <button id="play-btn-full" class="control-btn primary" aria-label="Play or pause">
+              <svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M8 5l11 7-11 7V5z" />
+              </svg>
+              <svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M6 5h4v14H6zM14 5h4v14h-4z" />
+              </svg>
+            </button>
+            <button id="next-btn-full" class="control-btn" aria-label="Next">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M16 5h2v14h-2zM4 6l10 6-10 6V6z" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="detail-drawer" class="drawer hidden">
+      <div class="drawer-content">
+        <div class="drawer-header">
+          <div id="detail-title" class="drawer-title"></div>
+          <button id="detail-close" class="drawer-close">Close</button>
+        </div>
+        <div id="detail-actions" class="drawer-actions"></div>
+        <div id="detail-body" class="drawer-body"></div>
+      </div>
+    </div>
+
+    <div id="login-modal" class="modal hidden">
+      <div class="modal-card">
+        <div class="modal-title">Sign in with Plex</div>
+        <div class="modal-copy">
+          Pair Plesla to your Plex account and pick the server you want to stream from.
+        </div>
+        <button id="login-start" class="action-pill">Sign in with Plex</button>
+        <a id="login-link" class="action-pill ghost hidden" target="_blank" rel="noopener">Open Plex login</a>
+        <div id="login-status" class="modal-hint"></div>
+        <label class="modal-label">Preferred music library (optional)</label>
+        <input id="login-library" type="text" placeholder="Music" />
+        <div id="server-list" class="server-list"></div>
+      </div>
+    </div>
+
+    <div id="toast" class="toast hidden"></div>
+
+    <audio id="player"></audio>
+
+    <script src="app.js"></script>
+  </body>
+</html>
